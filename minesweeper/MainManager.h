@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 
-#include "Functioanlities.h"
+#include "Functionalities.h"
 #include "Board.h"
 #include "Cell.h"
 
