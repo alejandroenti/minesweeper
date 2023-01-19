@@ -24,6 +24,13 @@ void MainManager::Game() {
 			continue;
 		};
 
+		if (CheckIfHasMine(userX, userY)) {
+			system("cls");
+			//board.GameOverPrintBoard();
+			std::cout << "Cagaste" << std::endl;
+			isPlaying = false;
+		}
+
 
 
 		system("pause");
@@ -50,7 +57,7 @@ void MainManager::GenerateMines(Board* b, std::vector<Cell*> mines) {
 			}
 
 			if (valid) {
-				//b->board[positionY][positionX]->icon = 'M';
+				b->board[positionY][positionX]->icon = 'M';
 				b->board[positionY][positionX]->hasMine = true;
 				mines.push_back(b->board[positionY][positionX]);
 			}
@@ -59,8 +66,10 @@ void MainManager::GenerateMines(Board* b, std::vector<Cell*> mines) {
 	}
 }
 
-bool MainManager::DemandInput(int x, int y) {
+bool MainManager::DemandInput(int& x, int& y) {
 
+	
+	
 	std::cout << "\n\n";
 
 	std::cout << "Enter the position you want to check" << std::endl;
@@ -81,4 +90,10 @@ bool MainManager::DemandInput(int x, int y) {
 	}
 
 	return true;
+}
+
+bool MainManager::CheckIfHasMine(int& x, int& y) {
+
+	return board.board[y][x]->hasMine;
+
 }
