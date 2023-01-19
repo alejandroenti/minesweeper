@@ -24,14 +24,14 @@ void MainManager::Game() {
 			continue;
 		};
 
-		if (CheckIfHasMine(userX, userY)) {
+		if (board.CheckIfHasMine(userX, userY)) {
 			system("cls");
+			isPlaying = false;
 			//board.GameOverPrintBoard();
 			std::cout << "Cagaste" << std::endl;
-			isPlaying = false;
 		}
 
-
+		SelectCell(board.board[userY][userX]);
 
 		system("pause");
 		system("cls");
@@ -92,8 +92,11 @@ bool MainManager::DemandInput(int& x, int& y) {
 	return true;
 }
 
-bool MainManager::CheckIfHasMine(int& x, int& y) {
+void MainManager::SelectCell(Cell* cell) {
 
-	return board.board[y][x]->hasMine;
+	cell->isSelected = true;
 
+	board.CheckBorderCell(cell);
+
+	cell->icon = cell->minesBorder + 99;
 }

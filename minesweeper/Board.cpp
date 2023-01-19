@@ -41,3 +41,48 @@ void Board::PrintBoard() {
 	}
 
 }
+
+bool Board::CheckIfHasMine(int x, int y) {
+
+	return board[y][x]->hasMine;
+
+}
+
+void Board::CheckBorderCell(Cell* cell) {
+
+	//CHeckRightBorderCell()
+	//CHeckLeftBorderCell()
+	//CHeckTopBorderCell()
+	//CHeckRBottomBorderCell()
+	
+	if (cell->position.x == 0) {
+
+		if (cell->position.y == 0) {
+			
+			(CheckIfHasMine(cell->position.x + 1, cell->position.y)) ? cell->minesBorder++ : 0;
+			(CheckIfHasMine(cell->position.x + 1, cell->position.y + 1)) ? cell->minesBorder++ : 0;
+			(CheckIfHasMine(cell->position.x, cell->position.y + 1)) ? cell->minesBorder++ : 0;
+			
+			return;
+		}
+
+		if (cell->position.y == 9) {
+			(CheckIfHasMine(cell->position.x + 1, cell->position.y)) ? cell->minesBorder++ : 0;
+			(CheckIfHasMine(cell->position.x + 1, cell->position.y - 1)) ? cell->minesBorder++ : 0;
+			(CheckIfHasMine(cell->position.x, cell->position.y - 1)) ? cell->minesBorder++ : 0;
+			
+			return;
+		}
+
+		(CheckIfHasMine(cell->position.x, cell->position.y + 1)) ? cell->minesBorder++ : 0;
+		(CheckIfHasMine(cell->position.x + 1, cell->position.y + 1)) ? cell->minesBorder++ : 0;
+		(CheckIfHasMine(cell->position.x + 1, cell->position.y)) ? cell->minesBorder++ : 0;
+		(CheckIfHasMine(cell->position.x + 1, cell->position.y - 1)) ? cell->minesBorder++ : 0;
+		(CheckIfHasMine(cell->position.x, cell->position.y - 1)) ? cell->minesBorder++ : 0;
+
+		return;
+	}
+
+	
+
+}

@@ -16,5 +16,5 @@ struct MainManager {
 	void Game();
 	void GenerateMines(Board* b, std::vector<Cell*> mines);
 	bool DemandInput(int& x, int& y);
-	bool CheckIfHasMine(int& x, int& y);
+	void SelectCell(Cell* cell);
 };

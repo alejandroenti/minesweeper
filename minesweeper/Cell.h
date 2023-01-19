@@ -8,6 +8,8 @@ struct Cell {
 
 	char icon;
 
+	int minesBorder;
+
 	bool isSelected;
 	bool hasMine;
 
