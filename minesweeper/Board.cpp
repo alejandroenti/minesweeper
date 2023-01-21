@@ -13,29 +13,44 @@ void Board::InitializeBoard() {
 
 void Board::PrintBoard() {
 
+	std::cout << " ------------------- M I N E S W E E P E R --------------------\n" << std::endl;
+
 	for (int i = 0; i < MAP_SIZE; i++) {
+		if (i == 0) {
+			std::cout << "      " << i << "  ";
+		}
+		else {
+			std::cout << "   " << i << "  ";
+		}
+	}
+	std::cout << std::endl;
+
+	for (int i = 0; i < MAP_SIZE; i++) {
+
 		for (int j = 0; j < MAP_SIZE; j++) {
-			std::cout << " +-----+";
+			if (j == 0) {
+				std::cout << "    +---+";
+			}
+			else {
+				std::cout << " +---+";
+			}
+		}
+		std::cout << std::endl;
+
+		std::cout << " " << i << " ";
+
+		for (int j = 0; j < MAP_SIZE; j++) {
+			std::cout << " | " << board[i][j]->icon << " |";
 		}
 		std::cout << std::endl;
 
 		for (int j = 0; j < MAP_SIZE; j++) {
-			std::cout << " |     |";
-		}
-		std::cout << "\n";
-
-		for (int j = 0; j < MAP_SIZE; j++) {
-			std::cout << " |  " << board[i][j]->icon << "  |";
-		}
-		std::cout << std::endl;
-
-		for (int j = 0; j < MAP_SIZE; j++) {
-			std::cout << " |     |";
-		}
-		std::cout << "\n";
-
-		for (int j = 0; j < MAP_SIZE; j++) {
-			std::cout << " +-----+";
+			if (j == 0) {
+				std::cout << "    +---+";
+			}
+			else {
+				std::cout << " +---+";
+			}
 		}
 		std::cout << "\n";
 	}
