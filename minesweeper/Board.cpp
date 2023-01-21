@@ -13,7 +13,9 @@ void Board::InitializeBoard() {
 
 void Board::PrintBoard() {
 
+	color("yellow");
 	std::cout << " ------------------- M I N E S W E E P E R --------------------\n" << std::endl;
+	color("");
 
 	for (int i = 0; i < MAP_SIZE; i++) {
 		if (i == 0) {
@@ -40,7 +42,44 @@ void Board::PrintBoard() {
 		std::cout << " " << i << " ";
 
 		for (int j = 0; j < MAP_SIZE; j++) {
-			std::cout << " | " << board[i][j]->icon << " |";
+			std::cout << " | ";
+			
+			switch (board[i][j]->icon) {
+				case '0':
+					color("cyan");
+					std::cout << board[i][j]->icon;
+					color("");
+					break;
+				case '1':
+					color("blue");
+					std::cout << board[i][j]->icon;
+					color("");
+					break;
+				case '2':
+					color("green");
+					std::cout << board[i][j]->icon;
+					color("");
+					break;
+				case '3':
+					color("yellow");
+					std::cout << board[i][j]->icon;
+					color("");
+					break;
+				case '4':
+					color("magenta");
+					std::cout << board[i][j]->icon;
+					color("");
+					break;
+				case 'M':
+					color("red");
+					std::cout << board[i][j]->icon;
+					color("");
+					break;
+				default:
+					std::cout << board[i][j]->icon;
+			}
+				
+			std::cout<< " |";
 		}
 		std::cout << std::endl;
 
@@ -86,7 +125,44 @@ void Board::PrintAllBoard() {
 		std::cout << " " << i << " ";
 
 		for (int j = 0; j < MAP_SIZE; j++) {
-			std::cout << " | " << board[i][j]->icon << " |";
+			std::cout << " | ";
+
+			switch (board[i][j]->icon) {
+			case '0':
+				color("cyan");
+				std::cout << board[i][j]->icon;
+				color("");
+				break;
+			case '1':
+				color("blue");
+				std::cout << board[i][j]->icon;
+				color("");
+				break;
+			case '2':
+				color("green");
+				std::cout << board[i][j]->icon;
+				color("");
+				break;
+			case '3':
+				color("yellow");
+				std::cout << board[i][j]->icon;
+				color("");
+				break;
+			case '4':
+				color("magenta");
+				std::cout << board[i][j]->icon;
+				color("");
+				break;
+			case 'M':
+				color("red");
+				std::cout << board[i][j]->icon;
+				color("");
+				break;
+			default:
+				std::cout << board[i][j]->icon;
+			}
+
+			std::cout << " |";
 		}
 		std::cout << std::endl;
 

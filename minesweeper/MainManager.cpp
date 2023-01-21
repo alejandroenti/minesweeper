@@ -20,7 +20,9 @@ void MainManager::Game() {
 
 		switch (currentScene) {
 		case START:
+			color("yellow");
 			std::cout << " -------------------- M I N E S W E E P E R--------------------\n" << std::endl;
+			color("");
 			std::cout << " Welcome to my incredible MineSweeper Game. In this game you'll\n";
 			std::cout << " face a matrix 10x10 with 10 mines around the board.\n" << std::endl;
 			std::cout << " Will you survive or a mine will explode you?\n\n" << std::endl;
@@ -60,7 +62,9 @@ void MainManager::Game() {
 
 			char playAgain;
 
+			color("yellow");
 			std::cout << " ------------------- M I N E S W E E P E R --------------------\n" << std::endl;
+			color("");
 
 			if (cellsSelected == 90) {
 				std::cout << " Congratulations, you won!! :)\n";
@@ -108,7 +112,6 @@ void MainManager::GenerateMines(Board* b, std::vector<Cell*> mines) {
 			}
 
 			if (valid) {
-				b->board[positionY][positionX]->icon = 'M';
 				b->board[positionY][positionX]->hasMine = true;
 				mines.push_back(b->board[positionY][positionX]);
 			}
@@ -126,7 +129,9 @@ bool MainManager::DemandInput(int& x, int& y) {
 	std::cin >> x;
 
 	if (CheckInput(x)) {
-		std::cout << " [!]Invalid X coordinate" << std::endl;
+		color("red");
+		std::cout << " [!] Invalid X coordinate" << std::endl;
+		color("");
 		return false;
 	}
 
@@ -134,17 +139,22 @@ bool MainManager::DemandInput(int& x, int& y) {
 	std::cin >> y;
 
 	if (CheckInput(y)) {
-		std::cout << " [!]Invalid Y coordinate" << std::endl;
+		color("red");
+		std::cout << " [!] Invalid Y coordinate" << std::endl;
+		color("");
 		return false;
 	}
 
 	if (board.board[y][x]->isSelected) {
-		std::cout << " [!]Coordinate already selected... Try again!" << std::endl;
+		color("red");
+		std::cout << " [!] Coordinate already selected... Try again!" << std::endl;
+		color("");
 		return false;
 	}
 
-	std::cout << " [*] Coordinate selected (" << x << " ," << y << ")" << std::endl;
-
+	color("green");
+	std::cout << " [*] Coordinate selected (" << x << " , " << y << ")" << std::endl;
+	color("");
 	return true;
 }
 

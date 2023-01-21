@@ -2,7 +2,6 @@
 #include <time.h>
 
 #include "MainManager.h"
-#include "Board.h"
 
 
 int main() {

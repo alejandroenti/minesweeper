@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "Functionalities.h"
+#include "Color.h"
 #include "Board.h"
 #include "Cell.h"
 

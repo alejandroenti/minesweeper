@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Cell.cpp" />
+    <ClCompile Include="Color.cpp" />
     <ClCompile Include="Functionalities.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainManager.cpp" />
@@ -136,6 +137,7 @@
   <ItemGroup>
     <ClInclude Include="Board.h" />
     <ClInclude Include="Cell.h" />
+    <ClInclude Include="Color.h" />
     <ClInclude Include="Functionalities.h" />
     <ClInclude Include="MainManager.h" />
     <ClInclude Include="MapPosition.h" />
