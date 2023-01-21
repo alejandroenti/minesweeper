@@ -14,4 +14,5 @@ struct Board {
 	void PrintBoard();
 	bool CheckIfHasMine(int x, int y);
 	void CheckBorderCell(Cell* cell);
+	void CheckRigthBorderCell(Cell* cell);
 };

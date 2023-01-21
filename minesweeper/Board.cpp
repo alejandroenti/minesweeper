@@ -50,39 +50,36 @@ bool Board::CheckIfHasMine(int x, int y) {
 
 void Board::CheckBorderCell(Cell* cell) {
 
-	//CHeckRightBorderCell()
-	//CHeckLeftBorderCell()
-	//CHeckTopBorderCell()
-	//CHeckRBottomBorderCell()
+	CheckRigthBorderCell(cell);
+	//CheckLeftBorderCell()
+	//CheckTopBorderCell()
+	//CheckRBottomBorderCell()
 	
-	if (cell->position.x == 0) {
 
-		if (cell->position.y == 0) {
-			
-			(CheckIfHasMine(cell->position.x + 1, cell->position.y)) ? cell->minesBorder++ : 0;
-			(CheckIfHasMine(cell->position.x + 1, cell->position.y + 1)) ? cell->minesBorder++ : 0;
-			(CheckIfHasMine(cell->position.x, cell->position.y + 1)) ? cell->minesBorder++ : 0;
-			
-			return;
-		}
+}
 
-		if (cell->position.y == 9) {
-			(CheckIfHasMine(cell->position.x + 1, cell->position.y)) ? cell->minesBorder++ : 0;
-			(CheckIfHasMine(cell->position.x + 1, cell->position.y - 1)) ? cell->minesBorder++ : 0;
-			(CheckIfHasMine(cell->position.x, cell->position.y - 1)) ? cell->minesBorder++ : 0;
-			
-			return;
-		}
+void Board::CheckRigthBorderCell(Cell* cell) {
 
-		(CheckIfHasMine(cell->position.x, cell->position.y + 1)) ? cell->minesBorder++ : 0;
-		(CheckIfHasMine(cell->position.x + 1, cell->position.y + 1)) ? cell->minesBorder++ : 0;
-		(CheckIfHasMine(cell->position.x + 1, cell->position.y)) ? cell->minesBorder++ : 0;
-		(CheckIfHasMine(cell->position.x + 1, cell->position.y - 1)) ? cell->minesBorder++ : 0;
-		(CheckIfHasMine(cell->position.x, cell->position.y - 1)) ? cell->minesBorder++ : 0;
-
+	if (cell->position.x == 9) {
 		return;
 	}
 
-	
+	if (cell->position.y == 0) {
+		for (int i = cell->position.y; i < cell->position.y + 1; i++) {
+			(CheckIfHasMine(cell->position.x + 1, i)) ? cell->minesBorder++ : 0;
+		}
+		return;
+	}
 
+	if (cell->position.y == 9) {
+		for (int i = cell->position.y - 1; i < cell->position.y; i++) {
+			(CheckIfHasMine(cell->position.x + 1, i)) ? cell->minesBorder++ : 0;
+		}
+		return;
+	}
+
+
+	for (int i = cell->position.y - 1; i <= cell->position.y + 1; i++) {
+		(CheckIfHasMine(cell->position.x + 1, i)) ? cell->minesBorder++ : 0;
+	}
 }
