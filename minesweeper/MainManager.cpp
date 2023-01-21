@@ -1,6 +1,6 @@
 #include "MainManager.h"
 
-void MainManager::Start() {
+void MainManager::StartGame() {
 
 	board.InitializeBoard();
 	GenerateMines(&board, mines);
@@ -10,41 +10,84 @@ void MainManager::Start() {
 
 void MainManager::Game() {
 
+	currentScene = START;
+
+	bool isPlaying = true;
 	int userX = 0;
 	int userY = 0;
 
-	bool isPlaying = true;
-
 	while (isPlaying) {
 
-		board.PrintBoard();
-
-		if (!DemandInput(userX, userY)) {
+		switch (currentScene) {
+		case START:
+			std::cout << " -------------------- M I N E S W E E P E R--------------------\n" << std::endl;
+			std::cout << " Welcome to my incredible MineSweeper Game. In this game you'll\n";
+			std::cout << " face a matrix 10x10 with 10 mines around the board.\n" << std::endl;
+			std::cout << " Will you survive or a mine will explode you?\n\n" << std::endl;
+			currentScene = BOARD;
+			StartGame();
 			system("pause");
 			system("cls");
-			continue;
-		};
+			break;
 
-		if (board.CheckIfHasMine(userX, userY)) {
+		case BOARD:
+
+			board.PrintBoard();
+
+			if (!DemandInput(userX, userY)) {
+				system("pause");
+				system("cls");
+				continue;
+			};
+
+			if (board.CheckIfHasMine(userX, userY)) {
+				currentScene = GAMEOVER;
+			}
+
+			SelectCell(board.board[userY][userX]);
+
+			if (cellsSelected == 90) {
+				currentScene = GAMEOVER;
+				
+			}
+
+			system("pause");
 			system("cls");
+
+		break;
+
+		case GAMEOVER:
+
+			char playAgain;
+
+			std::cout << " ------------------- M I N E S W E E P E R --------------------\n" << std::endl;
+
+			if (cellsSelected == 90) {
+				std::cout << " Congratulations, you won!! :)\n";
+			}
+			else {
+				std::cout << " Oh no! You haven't been able to withstand the pressure  :(\n";
+			}
+
+			std::cout << " This is the complete board:\n\n";
+			board.PrintAllBoard();
+
+			std::cout << "\n Would you like to play another game? [Y/n] ";
+			std::cin >> playAgain;
+
+			if (playAgain == 'y' || playAgain == 'Y') {
+				system("cls");
+				currentScene = START;
+				continue;
+			}
+
 			isPlaying = false;
-			//board.GameOverPrintBoard();
-			std::cout << "Cagaste" << std::endl;
-		}
-
-		SelectCell(board.board[userY][userX]);
-
-		if (cellsSelected == 90) {
 			system("cls");
-			isPlaying = false;
-			//board.GameOverPrintBoard();
-			std::cout << "Ganaste wey!" << std::endl;
+			std::cout << " See you next time!" << std::endl;
+			
+			break;
 		}
-
-		system("pause");
-		system("cls");
 	}
-
 }
 
 void MainManager::GenerateMines(Board* b, std::vector<Cell*> mines) {
@@ -75,32 +118,32 @@ void MainManager::GenerateMines(Board* b, std::vector<Cell*> mines) {
 }
 
 bool MainManager::DemandInput(int& x, int& y) {
-
-	
 	
 	std::cout << "\n\n";
 
-	std::cout << "Enter the position you want to check" << std::endl;
-	std::cout << "Enter X: ";
+	std::cout << " Enter the position you want to check" << std::endl;
+	std::cout << " Enter X: ";
 	std::cin >> x;
 
 	if (CheckInput(x)) {
-		std::cout << "Invalid X coordinate" << std::endl;
+		std::cout << " [!]Invalid X coordinate" << std::endl;
 		return false;
 	}
 
-	std::cout << "Enter Y: ";
+	std::cout << " Enter Y: ";
 	std::cin >> y;
 
 	if (CheckInput(y)) {
-		std::cout << "Invalid Y coordinate" << std::endl;
+		std::cout << " [!]Invalid Y coordinate" << std::endl;
 		return false;
 	}
 
 	if (board.board[y][x]->isSelected) {
-		std::cout << "Coordinate already selected... Try again!" << std::endl;
+		std::cout << " [!]Coordinate already selected... Try again!" << std::endl;
 		return false;
 	}
+
+	std::cout << " [*] Coordinate selected (" << x << " ," << y << ")" << std::endl;
 
 	return true;
 }

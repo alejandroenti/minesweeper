@@ -57,6 +57,66 @@ void Board::PrintBoard() {
 
 }
 
+void Board::PrintAllBoard() {
+
+	DiscoverBoard();
+
+	for (int i = 0; i < MAP_SIZE; i++) {
+		if (i == 0) {
+			std::cout << "      " << i << "  ";
+		}
+		else {
+			std::cout << "   " << i << "  ";
+		}
+	}
+	std::cout << std::endl;
+
+	for (int i = 0; i < MAP_SIZE; i++) {
+
+		for (int j = 0; j < MAP_SIZE; j++) {
+			if (j == 0) {
+				std::cout << "    +---+";
+			}
+			else {
+				std::cout << " +---+";
+			}
+		}
+		std::cout << std::endl;
+
+		std::cout << " " << i << " ";
+
+		for (int j = 0; j < MAP_SIZE; j++) {
+			std::cout << " | " << board[i][j]->icon << " |";
+		}
+		std::cout << std::endl;
+
+		for (int j = 0; j < MAP_SIZE; j++) {
+			if (j == 0) {
+				std::cout << "    +---+";
+			}
+			else {
+				std::cout << " +---+";
+			}
+		}
+		std::cout << "\n";
+	}
+
+}
+
+void Board::DiscoverBoard() {
+
+	for (int i = 0; i < MAP_SIZE; i++) {
+		for (int j = 0; j < MAP_SIZE; j++) {
+			if (board[i][j]->hasMine) {
+				board[i][j]->icon = 'M';
+				continue;
+			}
+			CheckBorderCellGameOver(board[i][j]);
+		}
+	}
+
+}
+
 bool Board::CheckIfHasMine(int x, int y) {
 
 	return board[y][x]->hasMine;
@@ -85,6 +145,21 @@ void Board::CheckBorderCell(Cell* cell, int& cellsSelected) {
 	for (int i = 0; i < cell->neighboursWithoutMine.size(); i++) {
 		CheckBorderCell(cell->neighboursWithoutMine[i], cellsSelected);
 	}
+
+}
+
+void Board::CheckBorderCellGameOver(Cell* cell) {
+
+	if (cell->isSelected) {
+		return;
+	}
+
+	CheckRigthBorderCell(cell);
+	CheckLeftBorderCell(cell);
+	CheckTopBorderCell(cell);
+	CheckBottomBorderCell(cell);
+
+	cell->icon = cell->minesBorder + '0';
 
 }
 

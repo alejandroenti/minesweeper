@@ -11,7 +11,6 @@ int main() {
 
 	MainManager manager;
 
-	manager.Start();
 	manager.Game();
 
 	return 0;
