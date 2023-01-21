@@ -89,6 +89,11 @@ bool MainManager::DemandInput(int& x, int& y) {
 		return false;
 	}
 
+	if (board.board[y][x]->isSelected) {
+		std::cout << "Coordinate already selected... Try again!" << std::endl;
+		return false;
+	}
+
 	return true;
 }
 
