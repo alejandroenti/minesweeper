@@ -72,11 +72,17 @@ void Board::CheckBorderCell(Cell* cell) {
 	CheckTopBorderCell(cell);
 	CheckBottomBorderCell(cell);
 	
-	cell->icon = cell->minesBorder + 99;
+	cell->icon = cell->minesBorder + 48;
+
+	if (cell->minesBorder != 0) {
+		return;
+	}
 
 	for (int i = 0; i < cell->neighboursWithoutMine.size(); i++) {
 		CheckBorderCell(cell->neighboursWithoutMine[i]);
 	}
+
+	cell->neighboursWithoutMine.erase(cell->neighboursWithoutMine.begin(), cell->neighboursWithoutMine.end());
 }
 
 void Board::CheckRigthBorderCell(Cell* cell) {
