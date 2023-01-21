@@ -51,9 +51,9 @@ bool Board::CheckIfHasMine(int x, int y) {
 void Board::CheckBorderCell(Cell* cell) {
 
 	CheckRigthBorderCell(cell);
-	//CheckLeftBorderCell()
-	//CheckTopBorderCell()
-	//CheckRBottomBorderCell()
+	CheckLeftBorderCell(cell);
+	CheckTopBorderCell(cell);
+	CheckBottomBorderCell(cell);
 	
 
 }
@@ -72,7 +72,7 @@ void Board::CheckRigthBorderCell(Cell* cell) {
 	}
 
 	if (cell->position.y == 9) {
-		for (int i = cell->position.y - 1; i < cell->position.y; i++) {
+		for (int i = cell->position.y - 1; i <= cell->position.y; i++) {
 			(CheckIfHasMine(cell->position.x + 1, i)) ? cell->minesBorder++ : 0;
 		}
 		return;
@@ -82,4 +82,50 @@ void Board::CheckRigthBorderCell(Cell* cell) {
 	for (int i = cell->position.y - 1; i <= cell->position.y + 1; i++) {
 		(CheckIfHasMine(cell->position.x + 1, i)) ? cell->minesBorder++ : 0;
 	}
+}
+
+void Board::CheckLeftBorderCell(Cell* cell) {
+
+	if (cell->position.x == 0) {
+		return;
+	}
+
+	if (cell->position.y == 0) {
+		for (int i = cell->position.y; i < cell->position.y + 1; i++) {
+			(CheckIfHasMine(cell->position.x - 1, i)) ? cell->minesBorder++ : 0;
+		}
+		return;
+	}
+
+	if (cell->position.y == 9) {
+		for (int i = cell->position.y - 1; i <= cell->position.y; i++) {
+			(CheckIfHasMine(cell->position.x - 1, i)) ? cell->minesBorder++ : 0;
+		}
+		return;
+	}
+
+
+	for (int i = cell->position.y - 1; i <= cell->position.y + 1; i++) {
+		(CheckIfHasMine(cell->position.x - 1, i)) ? cell->minesBorder++ : 0;
+	}
+}
+
+void Board::CheckTopBorderCell(Cell* cell) {
+
+	if (cell->position.y == 0) {
+		return;
+	}
+	
+	(CheckIfHasMine(cell->position.x, cell->position.y - 1)) ? cell->minesBorder++ : 0;
+
+}
+
+void Board::CheckBottomBorderCell(Cell* cell) {
+
+	if (cell->position.y == 9) {
+		return;
+	}
+
+	(CheckIfHasMine(cell->position.x, cell->position.y + 1)) ? cell->minesBorder++ : 0;
+
 }

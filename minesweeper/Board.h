@@ -15,4 +15,7 @@ struct Board {
 	bool CheckIfHasMine(int x, int y);
 	void CheckBorderCell(Cell* cell);
 	void CheckRigthBorderCell(Cell* cell);
+	void CheckLeftBorderCell(Cell* cell);
+	void CheckTopBorderCell(Cell* cell);
+	void CheckBottomBorderCell(Cell* cell);
 };
