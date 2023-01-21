@@ -63,26 +63,29 @@ bool Board::CheckIfHasMine(int x, int y) {
 
 }
 
-void Board::CheckBorderCell(Cell* cell) {
+void Board::CheckBorderCell(Cell* cell, int& cellsSelected) {
 
-	cell->isSelected = true;
+	if (cell->isSelected) {
+		return;
+	}
 
 	CheckRigthBorderCell(cell);
 	CheckLeftBorderCell(cell);
 	CheckTopBorderCell(cell);
 	CheckBottomBorderCell(cell);
-	
-	cell->icon = cell->minesBorder + 48;
+
+	cell->isSelected = true;
+	cellsSelected++;
+	cell->icon = cell->minesBorder + '0';
 
 	if (cell->minesBorder != 0) {
 		return;
 	}
 
 	for (int i = 0; i < cell->neighboursWithoutMine.size(); i++) {
-		CheckBorderCell(cell->neighboursWithoutMine[i]);
+		CheckBorderCell(cell->neighboursWithoutMine[i], cellsSelected);
 	}
 
-	cell->neighboursWithoutMine.erase(cell->neighboursWithoutMine.begin(), cell->neighboursWithoutMine.end());
 }
 
 void Board::CheckRigthBorderCell(Cell* cell) {
@@ -140,7 +143,7 @@ void Board::CheckLeftBorderCell(Cell* cell) {
 	}
 
 	if (cell->position.y == 0) {
-		for (int i = cell->position.y; i < cell->position.y + 1; i++) {
+		for (int i = cell->position.y; i <= cell->position.y + 1; i++) {
 			if (CheckIfHasMine(cell->position.x - 1, i)) {
 				cell->minesBorder++;
 				continue;

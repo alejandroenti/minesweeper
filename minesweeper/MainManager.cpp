@@ -4,6 +4,7 @@ void MainManager::Start() {
 
 	board.InitializeBoard();
 	GenerateMines(&board, mines);
+	cellsSelected = 0;
 
 }
 
@@ -32,6 +33,13 @@ void MainManager::Game() {
 		}
 
 		SelectCell(board.board[userY][userX]);
+
+		if (cellsSelected == 90) {
+			system("cls");
+			isPlaying = false;
+			//board.GameOverPrintBoard();
+			std::cout << "Ganaste wey!" << std::endl;
+		}
 
 		system("pause");
 		system("cls");
@@ -99,6 +107,6 @@ bool MainManager::DemandInput(int& x, int& y) {
 
 void MainManager::SelectCell(Cell* cell) {
 
-	board.CheckBorderCell(cell);
+	board.CheckBorderCell(cell, cellsSelected);
 
 }

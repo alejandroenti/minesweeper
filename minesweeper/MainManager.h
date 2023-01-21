@@ -11,6 +11,8 @@ struct MainManager {
 
 	Board board;
 	std::vector<Cell*> mines;
+	int cellsSelected;
+
 
 	void Start();
 	void Game();

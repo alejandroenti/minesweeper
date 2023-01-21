@@ -13,7 +13,7 @@ struct Board {
 	void InitializeBoard();
 	void PrintBoard();
 	bool CheckIfHasMine(int x, int y);
-	void CheckBorderCell(Cell* cell);
+	void CheckBorderCell(Cell* cell, int& cellsSelected);
 	void CheckRigthBorderCell(Cell* cell);
 	void CheckLeftBorderCell(Cell* cell);
 	void CheckTopBorderCell(Cell* cell);
