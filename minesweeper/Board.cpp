@@ -65,12 +65,18 @@ bool Board::CheckIfHasMine(int x, int y) {
 
 void Board::CheckBorderCell(Cell* cell) {
 
+	cell->isSelected = true;
+
 	CheckRigthBorderCell(cell);
 	CheckLeftBorderCell(cell);
 	CheckTopBorderCell(cell);
 	CheckBottomBorderCell(cell);
 	
+	cell->icon = cell->minesBorder + 99;
 
+	for (int i = 0; i < cell->neighboursWithoutMine.size(); i++) {
+		CheckBorderCell(cell->neighboursWithoutMine[i]);
+	}
 }
 
 void Board::CheckRigthBorderCell(Cell* cell) {
@@ -80,22 +86,44 @@ void Board::CheckRigthBorderCell(Cell* cell) {
 	}
 
 	if (cell->position.y == 0) {
-		for (int i = cell->position.y; i < cell->position.y + 1; i++) {
-			(CheckIfHasMine(cell->position.x + 1, i)) ? cell->minesBorder++ : 0;
+		for (int i = cell->position.y; i <= cell->position.y + 1; i++) {
+			if (CheckIfHasMine(cell->position.x + 1, i)) {
+				cell->minesBorder++;
+				continue;
+			}
+
+			if (!board[i][cell->position.x + 1]->isSelected) {
+				cell->neighboursWithoutMine.push_back(board[i][cell->position.x + 1]);
+			}
+			
 		}
 		return;
 	}
 
 	if (cell->position.y == 9) {
 		for (int i = cell->position.y - 1; i <= cell->position.y; i++) {
-			(CheckIfHasMine(cell->position.x + 1, i)) ? cell->minesBorder++ : 0;
+			if (CheckIfHasMine(cell->position.x + 1, i)) {
+				cell->minesBorder++;
+				continue;
+			}
+
+			if (!board[i][cell->position.x + 1]->isSelected) {
+				cell->neighboursWithoutMine.push_back(board[i][cell->position.x + 1]);
+			}
 		}
 		return;
 	}
 
 
 	for (int i = cell->position.y - 1; i <= cell->position.y + 1; i++) {
-		(CheckIfHasMine(cell->position.x + 1, i)) ? cell->minesBorder++ : 0;
+		if (CheckIfHasMine(cell->position.x + 1, i)) {
+			cell->minesBorder++;
+			continue;
+		}
+
+		if (!board[i][cell->position.x + 1]->isSelected) {
+			cell->neighboursWithoutMine.push_back(board[i][cell->position.x + 1]);
+		}
 	}
 }
 
@@ -107,21 +135,42 @@ void Board::CheckLeftBorderCell(Cell* cell) {
 
 	if (cell->position.y == 0) {
 		for (int i = cell->position.y; i < cell->position.y + 1; i++) {
-			(CheckIfHasMine(cell->position.x - 1, i)) ? cell->minesBorder++ : 0;
+			if (CheckIfHasMine(cell->position.x - 1, i)) {
+				cell->minesBorder++;
+				continue;
+			}
+
+			if (!board[i][cell->position.x - 1]->isSelected) {
+				cell->neighboursWithoutMine.push_back(board[i][cell->position.x - 1]);
+			}
 		}
 		return;
 	}
 
 	if (cell->position.y == 9) {
 		for (int i = cell->position.y - 1; i <= cell->position.y; i++) {
-			(CheckIfHasMine(cell->position.x - 1, i)) ? cell->minesBorder++ : 0;
+			if (CheckIfHasMine(cell->position.x - 1, i)) {
+				cell->minesBorder++;
+				continue;
+			}
+
+			if (!board[i][cell->position.x - 1]->isSelected) {
+				cell->neighboursWithoutMine.push_back(board[i][cell->position.x - 1]);
+			}
 		}
 		return;
 	}
 
 
 	for (int i = cell->position.y - 1; i <= cell->position.y + 1; i++) {
-		(CheckIfHasMine(cell->position.x - 1, i)) ? cell->minesBorder++ : 0;
+		if (CheckIfHasMine(cell->position.x - 1, i)) {
+			cell->minesBorder++;
+			continue;
+		}
+
+		if (!board[i][cell->position.x - 1]->isSelected) {
+			cell->neighboursWithoutMine.push_back(board[i][cell->position.x - 1]);
+		}
 	}
 }
 
@@ -131,7 +180,14 @@ void Board::CheckTopBorderCell(Cell* cell) {
 		return;
 	}
 	
-	(CheckIfHasMine(cell->position.x, cell->position.y - 1)) ? cell->minesBorder++ : 0;
+	if (CheckIfHasMine(cell->position.x, cell->position.y - 1)) {
+		cell->minesBorder++;
+		return;
+	}
+
+	if (!board[cell->position.y - 1][cell->position.x]->isSelected) {
+		cell->neighboursWithoutMine.push_back(board[cell->position.y - 1][cell->position.x]);
+	}
 
 }
 
@@ -141,6 +197,12 @@ void Board::CheckBottomBorderCell(Cell* cell) {
 		return;
 	}
 
-	(CheckIfHasMine(cell->position.x, cell->position.y + 1)) ? cell->minesBorder++ : 0;
+	if (CheckIfHasMine(cell->position.x, cell->position.y + 1)) {
+		cell->minesBorder++;
+		return;
+	}
 
+	if (!board[cell->position.y + 1][cell->position.x]->isSelected) {
+		cell->neighboursWithoutMine.push_back(board[cell->position.y + 1][cell->position.x]);
+	}
 }

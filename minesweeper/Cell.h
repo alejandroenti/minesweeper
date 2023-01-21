@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "MapPosition.h"
 
 struct Cell {
@@ -12,6 +13,8 @@ struct Cell {
 
 	bool isSelected;
 	bool hasMine;
+
+	std::vector<Cell*> neighboursWithoutMine;
 
 	void InitializeCell(int x, int y);
 };

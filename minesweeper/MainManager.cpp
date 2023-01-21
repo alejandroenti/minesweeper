@@ -99,9 +99,6 @@ bool MainManager::DemandInput(int& x, int& y) {
 
 void MainManager::SelectCell(Cell* cell) {
 
-	cell->isSelected = true;
-
 	board.CheckBorderCell(cell);
 
-	cell->icon = cell->minesBorder + 99;
 }
