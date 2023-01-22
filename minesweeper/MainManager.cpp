@@ -23,9 +23,10 @@ void MainManager::Game() {
 			color("yellow");
 			std::cout << " -------------------- M I N E S W E E P E R--------------------\n" << std::endl;
 			color("");
-			std::cout << " Welcome to my incredible MineSweeper Game. In this game you'll\n";
-			std::cout << " face a matrix 10x10 with 10 mines around the board.\n" << std::endl;
-			std::cout << " Will you survive or a mine will explode you?\n\n" << std::endl;
+			std::cout << " Welcome to my incredible MineSweeper Game. Here you will face \n";
+			std::cout << " a 10x10 matrix where 10 mines are hidden all over the board.\n" << std::endl;
+			std::cout << " Will you be able to avoid all the mines or will they find you" << std::endl;
+			std::cout << " first?\n\n" << std::endl;
 			currentScene = BOARD;
 			StartGame();
 			system("pause");
@@ -68,10 +69,14 @@ void MainManager::Game() {
 			color("");
 
 			if (cellsSelected == 90) {
-				std::cout << " Congratulations, you won!! :)\n";
+				color("green");
+				std::cout << " Congratulations, you win!! :)\n\n";
+				color("");
 			}
 			else {
-				std::cout << " Oh no! You haven't been able to withstand the pressure  :(\n";
+				color("red");
+				std::cout << " Oh no! You felt the pressure :(\n\n";
+				color("");
 			}
 
 			std::cout << " This is the complete board:\n\n";
